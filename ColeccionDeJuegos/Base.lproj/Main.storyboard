@@ -21,6 +21,7 @@
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="iMW-tf-Czs">
                                 <rect key="frame" x="0.0" y="64" width="375" height="603"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <sections/>
                             </tableView>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -33,11 +34,18 @@
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                     <navigationItem key="navigationItem" id="JRg-Q7-pag">
-                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="2cl-Cg-jDp">
-                            <connections>
-                                <segue destination="uXw-kg-qAf" kind="show" identifier="juegoSegue" id="cAp-aU-DWp"/>
-                            </connections>
-                        </barButtonItem>
+                        <rightBarButtonItems>
+                            <barButtonItem systemItem="add" id="2cl-Cg-jDp">
+                                <connections>
+                                    <segue destination="uXw-kg-qAf" kind="show" identifier="juegoSegue" id="cAp-aU-DWp"/>
+                                </connections>
+                            </barButtonItem>
+                            <barButtonItem title="Edit" id="szz-7U-Pnc">
+                                <connections>
+                                    <action selector="btnEditar:" destination="BYZ-38-t0r" id="Ehd-dW-Bci"/>
+                                </connections>
+                            </barButtonItem>
+                        </rightBarButtonItems>
                     </navigationItem>
                     <connections>
                         <outlet property="tableView" destination="iMW-tf-Czs" id="4Ne-e6-gHE"/>
@@ -68,32 +76,46 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cT6-u0-Q6c">
-                                <rect key="frame" x="160" y="316" width="55" height="30"/>
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Ingrese Categoria" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="kSU-K4-Yes">
+                                <rect key="frame" x="47.5" y="318" width="280" height="30"/>
+                                <nil key="textColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                                <connections>
+                                    <outlet property="delegate" destination="uXw-kg-qAf" id="DFU-Ef-g4O"/>
+                                </connections>
+                            </textField>
+                            <pickerView contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="x7R-AM-gkK">
+                                <rect key="frame" x="48" y="356" width="280" height="210"/>
+                                <connections>
+                                    <outlet property="dataSource" destination="uXw-kg-qAf" id="OSo-Uf-Jvy"/>
+                                    <outlet property="delegate" destination="uXw-kg-qAf" id="O0E-tq-ggt"/>
+                                </connections>
+                            </pickerView>
+                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cT6-u0-Q6c">
+                                <rect key="frame" x="160" y="557" width="55" height="30"/>
                                 <state key="normal" title="Agregar"/>
                                 <connections>
                                     <action selector="agregarTapped:" destination="uXw-kg-qAf" eventType="touchUpInside" id="8YY-cG-0aV"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DLp-vB-NBT">
-                                <rect key="frame" x="160" y="361" width="55" height="30"/>
-                                <state key="normal" title="Eliminar"/>
-                                <connections>
-                                    <action selector="eliminarTapped:" destination="uXw-kg-qAf" eventType="touchUpInside" id="Lz5-q6-IDs"/>
-                                </connections>
-                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="cT6-u0-Q6c" firstAttribute="top" secondItem="Drp-PZ-6ns" secondAttribute="bottom" constant="20" id="3Q0-bs-a0f"/>
-                            <constraint firstItem="DLp-vB-NBT" firstAttribute="top" secondItem="cT6-u0-Q6c" secondAttribute="bottom" constant="15" id="5DM-mS-Td5"/>
+                            <constraint firstItem="x7R-AM-gkK" firstAttribute="top" secondItem="kSU-K4-Yes" secondAttribute="bottom" constant="8" id="0Sy-5b-hA7"/>
+                            <constraint firstItem="kSU-K4-Yes" firstAttribute="centerX" secondItem="UbY-Fr-81j" secondAttribute="centerX" id="47T-R0-2mK"/>
                             <constraint firstItem="cT6-u0-Q6c" firstAttribute="centerX" secondItem="UbY-Fr-81j" secondAttribute="centerX" id="754-RP-cdS"/>
+                            <constraint firstItem="kSU-K4-Yes" firstAttribute="top" secondItem="Drp-PZ-6ns" secondAttribute="bottom" constant="22" id="7bF-eS-48b"/>
                             <constraint firstItem="ksI-30-Glx" firstAttribute="top" secondItem="oZb-lE-Fye" secondAttribute="top" constant="32" id="Deu-WK-gAO"/>
+                            <constraint firstItem="kSU-K4-Yes" firstAttribute="width" secondItem="Drp-PZ-6ns" secondAttribute="width" id="Gzv-x0-GYn"/>
+                            <constraint firstItem="x7R-AM-gkK" firstAttribute="width" secondItem="kSU-K4-Yes" secondAttribute="width" id="KTn-E6-fVU"/>
                             <constraint firstItem="Drp-PZ-6ns" firstAttribute="width" secondItem="ksI-30-Glx" secondAttribute="width" id="Lgw-bl-3Uj"/>
                             <constraint firstItem="ksI-30-Glx" firstAttribute="centerX" secondItem="UbY-Fr-81j" secondAttribute="centerX" id="Y9O-cZ-05k"/>
                             <constraint firstItem="Drp-PZ-6ns" firstAttribute="top" secondItem="ksI-30-Glx" secondAttribute="bottom" constant="20" id="Z1U-fw-lr4"/>
-                            <constraint firstItem="DLp-vB-NBT" firstAttribute="centerX" secondItem="UbY-Fr-81j" secondAttribute="centerX" id="ha8-kH-IYo"/>
+                            <constraint firstItem="cT6-u0-Q6c" firstAttribute="top" secondItem="x7R-AM-gkK" secondAttribute="bottom" constant="28" id="dr0-Hu-HiU"/>
+                            <constraint firstItem="kSU-K4-Yes" firstAttribute="top" secondItem="Drp-PZ-6ns" secondAttribute="bottom" constant="22" id="oTU-G7-Awd"/>
                             <constraint firstItem="Drp-PZ-6ns" firstAttribute="centerX" secondItem="UbY-Fr-81j" secondAttribute="centerX" id="vfP-Mf-Ugn"/>
+                            <constraint firstItem="x7R-AM-gkK" firstAttribute="centerX" secondItem="UbY-Fr-81j" secondAttribute="centerX" id="zBO-yH-czB"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="oZb-lE-Fye"/>
                     </view>
@@ -113,14 +135,15 @@
                     </navigationItem>
                     <connections>
                         <outlet property="agregarActualizarBoton" destination="cT6-u0-Q6c" id="wo0-CD-kWo"/>
-                        <outlet property="eliminarBoton" destination="DLp-vB-NBT" id="CrM-YX-wYV"/>
+                        <outlet property="dropDown" destination="x7R-AM-gkK" id="ajd-7M-bMH"/>
                         <outlet property="juegoImageView" destination="ksI-30-Glx" id="C0a-27-7qv"/>
                         <outlet property="tituloTextField" destination="Drp-PZ-6ns" id="cIO-eq-xEu"/>
+                        <outlet property="txtCategoria" destination="kSU-K4-Yes" id="TyJ-Lh-1d5"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="7D7-ke-maQ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1889" y="134"/>
+            <point key="canvasLocation" x="1888.8" y="133.5832083958021"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="7Cg-58-ne6">

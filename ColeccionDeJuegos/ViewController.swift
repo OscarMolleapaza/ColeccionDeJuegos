@@ -22,16 +22,28 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     }
     //Commit de prueba
 
+    @IBAction func btnEditar(_ sender: Any) {
+        self.tableView.isEditing = false
+    }
     
     
     @IBOutlet weak var tableView: UITableView!
     var juegos: [Juego] = []
     
     override func viewDidLoad() {
+        self.tableView.isEditing = true
+        setEditing(true, animated: true)
+
         super.viewDidLoad()
         tableView.dataSource = self
         tableView.delegate = self
   
+    }
+    func tableView(_ tableView: UITableView, moveRowAt fromIndexPath: IndexPath, to : IndexPath) {
+        
+        let objetoMovido = self.juegos[fromIndexPath.row]
+        juegos.remove(at: fromIndexPath.row)
+        juegos.insert(objetoMovido, at: to.row)
     }
     override func viewWillAppear(_ animated: Bool) {
         let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
@@ -50,6 +62,26 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         let siguenteVC = segue.destination as! JuegosViewController
         siguenteVC.juego = sender as? Juego
+    }
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete {
+            
+            
+            let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
+            //ELIMINAR DE LA BD
+            
+            context.delete(juegos[indexPath.row])
+            //ELIMINAR DE LA TABLA
+            juegos.remove(at: indexPath.row)
+            tableView.reloadData()
+            
+            
+            (UIApplication.shared.delegate as! AppDelegate).saveContext()
+            
+            
+            (UIApplication.shared.delegate as! AppDelegate).saveContext()
+            
+        }
     }
 
 
